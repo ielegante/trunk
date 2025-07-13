@@ -1,0 +1,46 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="#1a73e8" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Git branch icon -->
+  <g fill="#ffffff">
+    <!-- Main branch line -->
+    <path d="M30 64 L98 64" stroke="#ffffff" stroke-width="3" fill="none"/>
+
+    <!-- Branch nodes -->
+    <circle cx="30" cy="64" r="6"/>
+    <circle cx="50" cy="44" r="5"/>
+    <circle cx="70" cy="44" r="5"/>
+    <circle cx="98" cy="64" r="6"/>
+
+    <!-- Branch lines -->
+    <path d="M30 64 L50 44" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <path d="M50 44 L70 44" stroke="#ffffff" stroke-width="2" fill="none"/>
+    <path d="M70 44 L98 64" stroke="#ffffff" stroke-width="2" fill="none"/>
+
+    <!-- Legal scales symbol -->
+    <g transform="translate(64, 85)">
+      <!-- Scale base -->
+      <rect x="-2" y="8" width="4" height="12" fill="#ffffff"/>
+      <rect x="-8" y="18" width="16" height="3" fill="#ffffff"/>
+
+      <!-- Scale arms -->
+      <rect x="-1" y="-2" width="2" height="12" fill="#ffffff"/>
+
+      <!-- Scale pans -->
+      <ellipse cx="-12" cy="-2" rx="8" ry="3" fill="#ffffff"/>
+      <ellipse cx="12" cy="-2" rx="8" ry="3" fill="#ffffff"/>
+
+      <!-- Chains -->
+      <path d="M-8 0 L-12 -2 M8 0 L12 -2" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Version control dots -->
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="40" cy="80" r="2"/>
+    <circle cx="55" cy="80" r="2"/>
+    <circle cx="73" cy="80" r="2"/>
+    <circle cx="88" cy="80" r="2"/>
+  </g>
+</svg>
