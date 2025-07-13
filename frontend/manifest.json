@@ -20,7 +20,7 @@
         "https://drive.google.com/*",
         "https://docs.google.com/*"
       ],
-      "js": ["content-script.js"],
+      "js": ["git-operations.js", "commit-ui.js", "enhanced-content-script.js", "content-script.js"],
       "css": ["styles.css"]
     }
   ],

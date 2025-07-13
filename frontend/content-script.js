@@ -2,11 +2,18 @@
 
 console.log('Legal Git content script loaded');
 
+// Initialize Git Operations and Commit UI managers
+let gitOpsManager = null;
+let commitUIManager = null;
+
 // Track current page state
 let currentPage = {
   type: null, // 'drive' or 'docs'
   fileId: null,
-  fileName: null
+  fileName: null,
+  folderId: null,
+  folderName: null,
+  repositoryId: null
 };
 
 // Initialize when page loads
@@ -23,9 +30,19 @@ new MutationObserver(() => {
   }
 }).observe(document, { subtree: true, childList: true });
 
-function initializeLegalGit() {
+async function initializeLegalGit() {
+  // Initialize managers
+  if (!gitOpsManager) {
+    gitOpsManager = new GitOperationsManager();
+    await gitOpsManager.init();
+  }
+
+  if (!commitUIManager) {
+    commitUIManager = new CommitUIManager(gitOpsManager);
+  }
+
   detectPageType();
-  injectLegalGitUI();
+  await injectLegalGitUI();
   setupFileDetection();
 }
 
@@ -56,13 +73,28 @@ function extractDriveFileInfo() {
     currentPage.fileId = pathParts[fileIndex];
   }
 
-  // Try to get file name from page title or selected item
+  // Try to get folder ID (for repository creation)
+  if (pathParts.includes('folders')) {
+    const folderIndex = pathParts.indexOf('folders') + 1;
+    currentPage.folderId = pathParts[folderIndex];
+  }
+
+  // Try to get file/folder name from page title or selected item
   setTimeout(() => {
     const titleElement = document.querySelector('[data-tooltip="Rename"]') ||
                         document.querySelector('.p1sYSb') ||
-                        document.querySelector('[data-target="doc-title"]');
+                        document.querySelector('[data-target="doc-title"]') ||
+                        document.querySelector('[data-tooltip*="folder"]');
     if (titleElement) {
-      currentPage.fileName = titleElement.textContent?.trim();
+      const name = titleElement.textContent?.trim();
+      if (currentPage.folderId) {
+        currentPage.folderName = name;
+        currentPage.repositoryId = currentPage.folderId;
+      } else {
+        currentPage.fileName = name;
+        // For files, use parent folder as repository if available
+        currentPage.repositoryId = currentPage.folderId || 'root';
+      }
     }
   }, 500);
 }

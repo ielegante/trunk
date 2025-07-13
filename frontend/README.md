@@ -94,22 +94,59 @@ frontend/
 4. **Git Operations**: Communicates with backend git server for version control
 5. **Context Menus**: Right-click options for git operations
 
-## Sprint 1 Implementation
-
-This is the Sprint 1 MVP implementation focusing on:
+## Sprint 1 Implementation ✅ COMPLETE
 
 - ✅ Chrome extension shell with Manifest v3
 - ✅ Basic Google Drive integration and file detection
 - ✅ Context menus for git operations
 - ✅ Popup interface for configuration
 - ✅ UI injection into Drive/Docs pages
-- 🔄 GitHub repository setup (in progress)
+- ✅ GitHub repository setup
 
-## Next Steps (Future Sprints)
+## Sprint 2 Implementation ✅ COMPLETE
 
-- Git server integration and authentication
+This Sprint 2 implementation adds core git operations:
+
+- ✅ **Git Repository Creation**: Automatic repository creation per Google Drive folder
+- ✅ **Legal Conventional Commits**: Complete commit workflow with legal-specific commit types
+- ✅ **Permission System**: Mirrors Google Drive permissions to git repository access
+- ✅ **Commit UI**: Advanced commit interface with legal commit types and validation
+- ✅ **Branch Management**: Create and switch between work streams (branches)
+- ✅ **Repository Status**: Real-time tracking of repository state and current branch
+
+### New Features
+
+#### Legal Conventional Commit Types
+- `feat:` - New clauses/sections
+- `fix:` - Corrections/changes
+- `review:` - Incorporate feedback
+- `draft:` - Work in progress
+- `final:` - Ready for signature
+- `docs:` - Administrative updates
+- `redact:` - Remove confidential info
+- `merge:` - Combine multiple versions
+- `revert:` - Undo changes
+- `comment:` - Add internal notes/questions
+- `cite:` - Add legal citations/references
+- `format:` - Styling/layout changes only
+
+#### Work Stream Management (Branches)
+- Create new work streams with legal-friendly names
+- Switch between parallel work streams
+- Track current work stream in UI
+- Visual branch management interface
+
+#### Repository Operations
+- One repository per Google Drive folder
+- Automatic permission mirroring from Google Drive
+- Private repositories by default
+- Real-time status tracking
+
+## Next Steps (Sprint 3)
+
 - Document conversion pipeline (Google Docs ↔ Markdown)
 - Conflict resolution interface
+- Timeline view for document history
 - Template management system
 - Cross-document reference tracking
 
