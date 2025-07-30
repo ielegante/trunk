@@ -179,7 +179,16 @@ pyrightconfig.json
 workflows/
 
 # Ignore linting configuration files
-.flake8
+# .flake8  # Needed for project configuration
 .black
 .isort.cfg
 .specstory/
+
+# Project specific
+worktrees/
+.DS_Store
+*.log
+.claude/
+.gemini/
+pm.md
+project_log_*.md

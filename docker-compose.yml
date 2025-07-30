@@ -1,0 +1,52 @@
+# Docker Compose for Development
+# For production deployment, use docker-compose.prod.yml
+
+version: "3.8"
+
+services:
+  trunk:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trunk-legal-git-dev
+    image: trunk/legal-git:dev
+    environment:
+      # Development OAuth (create test app at https://console.cloud.google.com/)
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-your-dev-client-id}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-your-dev-secret}
+
+      # Development JWT secret (not for production!)
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-dev-secret-key-change-in-production}
+
+      # Development settings
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+
+      # Database
+      - DATABASE_URL=sqlite:////data/db/trunk.db
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - ./data:/data  # Mount local directory for development
+      - ./frontend:/app/frontend:ro  # Live reload frontend changes
+      - ./backend:/app/backend:ro    # Live reload backend changes
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # No resource limits in development
+
+# Development notes:
+# 1. Copy .env.example to .env and fill in your development credentials
+# 2. Run: docker-compose up --build
+# 3. Access at http://localhost:8080
+# 4. Frontend changes require Chrome extension reload
+# 5. Backend changes require container restart

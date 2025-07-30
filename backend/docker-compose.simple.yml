@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+  trunk-legal-git:
+    build:
+      context: .
+      dockerfile: Dockerfile.simple
+    container_name: trunk-legal-git
+    environment:
+      # Firm Information
+      - FIRM_NAME=${FIRM_NAME:-My Law Firm}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+
+      # Google OAuth
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI:-http://localhost:8080/auth/callback}
+
+      # Security
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - JWT_ALGORITHM=HS256
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+      # Application
+      - APP_NAME=Trunk Legal Git - ${FIRM_NAME:-My Law Firm}
+      - APP_VERSION=1.0.0
+      - DEBUG=False
+      - API_HOST=0.0.0.0
+      - API_PORT=8080
+
+      # Database (SQLite - Simple Mode)
+      - DATABASE_URL=sqlite:///data/trunk.db
+
+      # Cache (In-Memory - Simple Mode)
+      - CACHE_TYPE=memory
+      - CACHE_MAX_SIZE_MB=64
+
+      # Git Server (Embedded - Simple Mode)
+      - GIT_SERVER_TYPE=embedded
+      - GITEA_URL=
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - trunk-data:/app/data
+      - trunk-logs:/app/logs
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Resource limits for small law firms
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+volumes:
+  trunk-data:
+    driver: local
+  trunk-logs:
+    driver: local
+
+networks:
+  default:
+    name: trunk-network

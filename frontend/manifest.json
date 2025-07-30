@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Trunk - Legal Document Version Control",
+  "version": "0.9.0-beta",
+  "description": "Professional git-level version control for legal document management in Google Drive. Built for lawyers, by lawyers.",
+  "permissions": [
+    "https://drive.google.com/*",
+    "https://docs.google.com/*",
+    "https://*.office.com/*",
+    "https://*.microsoft.com/*",
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "tabs",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://drive.google.com/*",
+    "https://docs.google.com/*",
+    "https://*.office.com/*",
+    "https://*.microsoft.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://drive.google.com/*",
+        "https://docs.google.com/*",
+        "https://*.office.com/*",
+        "https://*.microsoft.com/*"
+      ],
+      "js": ["performance-optimizer.js", "error-handler.js", "user-feedback-system.js", "loading-states-manager.js", "git-operations.js", "commit-ui.js", "document-converter.js", "diff-visualizer.js", "change-tracker.js", "conflict-resolver.js", "timeline-view.js", "merge-workflow.js", "word-document-handler.js", "format-converter.js", "template-gallery.js", "redaction-warning-system.js", "reference-manager.js", "relationship-visualizer.js", "document-locking-system.js", "bulk-operations-interface.js", "advanced-diff-visualizer.js", "enhanced-content-script.js", "content-script.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Legal Git",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["injected-scripts/*"],
+      "matches": ["https://drive.google.com/*", "https://docs.google.com/*"]
+    }
+  ]
+}

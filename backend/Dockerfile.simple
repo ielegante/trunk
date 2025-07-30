@@ -1,0 +1,65 @@
+# Trunk Legal Git - Simple Single-Container Dockerfile
+# Target: Small law firms with minimal infrastructure
+
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    sqlite3 \
+    nginx \
+    supervisor \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app user and directories
+RUN useradd -m -s /bin/bash trunk && \
+    mkdir -p /app /data /var/log/trunk && \
+    chown -R trunk:trunk /app /data /var/log/trunk
+
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY --chown=trunk:trunk . .
+
+# Remove unnecessary enterprise dependencies
+RUN pip uninstall -y neo4j networkx graphviz 2>/dev/null || true
+
+# Configure nginx for reverse proxy
+COPY nginx.conf /etc/nginx/sites-available/default
+
+# Configure supervisor for process management
+COPY supervisord.conf /etc/supervisor/conf.d/trunk.conf
+
+# Create necessary directories
+RUN mkdir -p /data/repos /data/db /data/logs && \
+    chown -R trunk:trunk /data
+
+# Expose port
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+# Volume for persistent data
+VOLUME ["/data"]
+
+# Set environment variables for simple mode
+ENV TRUNK_MODE=simple \
+    DATABASE_URL=sqlite:////data/db/trunk.db \
+    GIT_REPOS_PATH=/data/repos \
+    LOG_PATH=/data/logs \
+    REDIS_URL= \
+    NEO4J_URI=
+
+# Entry point script
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["supervisord", "-n"]

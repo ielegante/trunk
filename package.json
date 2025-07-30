@@ -1,0 +1,32 @@
+{
+  "name": "trunk-legal-git",
+  "version": "0.9.0",
+  "description": "Git-level version control for legal documents",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint frontend/**/*.js",
+    "format": "prettier --write frontend/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trunk/legal-git.git"
+  },
+  "keywords": [
+    "legal",
+    "git",
+    "version-control",
+    "chrome-extension",
+    "google-docs"
+  ],
+  "author": "Trunk Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trunk/legal-git/issues"
+  },
+  "homepage": "https://github.com/trunk/legal-git#readme",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.3"
+  }
+}

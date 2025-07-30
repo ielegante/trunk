@@ -1,0 +1,15 @@
+Chrome Extension Icon Placeholders
+==================================
+
+The Chrome extension requires icon files in PNG format:
+- icon16.png (16x16 pixels)
+- icon32.png (32x32 pixels)
+- icon48.png (48x48 pixels)
+- icon128.png (128x128 pixels)
+
+For now, please create or add your own icon files here.
+You can use any image editor or online tool to create simple icons.
+
+Suggested icon: A document with a git branch symbol or legal scales with version control elements.
+
+Note: Without proper icon files, Chrome will show a default puzzle piece icon.

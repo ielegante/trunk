@@ -1,0 +1,13 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203, W503
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,.venv,venv,worktrees
+per-file-ignores =
+    # Ignore unused imports in __init__ files
+    */__init__.py:F401
+    # Ignore complexity in test files
+    */tests/*.py:C901
+    # Allow unused imports in models and type definitions
+    */models.py:F401
+    */types.py:F401
+EOF < /dev/null

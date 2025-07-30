@@ -1,4 +1,4 @@
-# Legal Git System - Complete Product Specification
+# Trunk - Complete Product Specification
 
 ## Executive Summary
 
@@ -249,7 +249,7 @@ Document package includes:
 
 #### First-Use Onboarding
 ```
-┌─ Welcome to Legal Git ─────────────────────┐
+┌─ Welcome to Trunk ─────────────────────┐
 │ ⚠️  Important: Version Control Basics      │
 │                                            │
 │ • Git tracks ALL changes permanently      │
@@ -515,7 +515,7 @@ legal-git/
 ```javascript
 {
   "manifest_version": 3,
-  "name": "Legal Git",
+  "name": "Trunk",
   "permissions": [
     "https://drive.google.com/*",
     "https://docs.google.com/*",
@@ -553,7 +553,7 @@ legal-git/
 #### Installation Package
 ```bash
 # One-command setup
-npx legal-git-setup
+npx trunk-setup
 
 # Docker deployment
 docker run -d \
@@ -682,7 +682,7 @@ function mapDriveRoleToGit(driveRole) {
 #### Phase 1: Basic Semantic Search
 ```javascript
 // Event-driven architecture for LLM integration
-window.legalGit = {
+window.trunk = {
   hooks: {
     onCommit: [],
     onSearch: [],
@@ -701,7 +701,7 @@ window.legalGit = {
 };
 
 // Example commit hook for semantic indexing
-legalGit.registerHook('onCommit', async (commitData) => {
+trunk.registerHook('onCommit', async (commitData) => {
   const embedding = await generateEmbedding(
     commitData.message + ' ' + commitData.diff
   );
@@ -1198,4 +1198,4 @@ const commitData = {
 
 ---
 
-This document provides complete specifications for building the Legal Git system. All architectural decisions, feature requirements, implementation details, and business considerations are included to enable independent development without further consultation.
+This document provides complete specifications for building the Trunk system. All architectural decisions, feature requirements, implementation details, and business considerations are included to enable independent development without further consultation.

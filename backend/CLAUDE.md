@@ -4,20 +4,20 @@ an open-source project bringing git version control to legal document management
 Git Worktree Development Workflow
 Your Development Environment:
 bash# Work exclusively in your backend worktree
-cd ../backend-worktree
+cd worktrees/backend-worktree
 git checkout backend/sprint-development
 
 # Create feature branches for specific work
 git checkout -b backend/feature-name
 # Do your development work
-git add -A && git commit -m "feat: implement feature-name API"
+git add -A && git commit -m "backend: implement feature-name API"
 git push origin backend/feature-name
 
 # Return to sprint development branch for next feature
 git checkout backend/sprint-development
 git merge backend/feature-name
 File Structure You Own:
-backend-worktree/
+worktrees/backend-worktree/
 ├── server/
 │   ├── api/
 │   ├── auth/
@@ -29,6 +29,8 @@ backend-worktree/
 │   └── scripts/
 ├── tests/backend/
 └── docs/api/
+
+Your Actual Workspace: /Users/ianc/python/trunk/worktrees/backend-worktree
 Infrastructure Code Management:
 
 Docker Configurations: All containerization in deployment/docker/
