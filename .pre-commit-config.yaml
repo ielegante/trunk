@@ -10,10 +10,10 @@ repos:
     rev: 23.11.0
     hooks:
     -   id: black
-# -   repo: https://github.com/PyCQA/flake8
-#     rev: 7.3.0
-#     hooks:
-#     -   id: flake8  # Temporarily disabled for large initial commit
+-   repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+    -   id: flake8
 -   repo: https://github.com/PyCQA/isort
     rev: 6.0.1
     hooks:
